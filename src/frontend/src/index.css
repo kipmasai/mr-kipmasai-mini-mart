@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Bricolage Grotesque", sans-serif;
+    --font-body: "Figtree", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --radius: 0.75rem;
+
+    --background: 0.975 0.012 95;
+    --foreground: 0.2 0.02 150;
+    --card: 1.0 0.004 95;
+    --card-foreground: 0.2 0.02 150;
+    --popover: 1.0 0.004 95;
+    --popover-foreground: 0.2 0.02 150;
+
+    --primary: 0.42 0.105 155;
+    --primary-foreground: 0.98 0.01 155;
+
+    --secondary: 0.93 0.018 95;
+    --secondary-foreground: 0.3 0.025 150;
+    --muted: 0.94 0.014 95;
+    --muted-foreground: 0.5 0.02 150;
+
+    --accent: 0.66 0.185 45;
+    --accent-foreground: 0.99 0.008 45;
+
+    --success: 0.6 0.15 150;
+    --success-foreground: 0.98 0.01 150;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0.005 25;
+
+    --warning: 0.75 0.15 85;
+    --warning-foreground: 0.2 0.02 85;
+
+    --border: 0.89 0.016 95;
+    --input: 0.89 0.016 95;
+    --ring: 0.42 0.105 155;
+
+    --chart-1: 0.6 0.15 150;
+    --chart-2: 0.66 0.185 45;
+    --chart-3: 0.55 0.12 230;
+    --chart-4: 0.75 0.15 85;
+    --chart-5: 0.58 0.16 20;
+
+    --sidebar: 0.98 0.01 95;
+    --sidebar-foreground: 0.2 0.02 150;
+    --sidebar-primary: 0.42 0.105 155;
+    --sidebar-primary-foreground: 0.98 0.01 155;
+    --sidebar-accent: 0.94 0.014 95;
+    --sidebar-accent-foreground: 0.3 0.025 150;
+    --sidebar-border: 0.89 0.016 95;
+    --sidebar-ring: 0.42 0.105 155;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.42 0.105 155),
+      oklch(0.5 0.12 165)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      oklch(0.68 0.19 50),
+      oklch(0.62 0.2 35)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.975 0.012 95),
+      oklch(0.95 0.02 100)
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0.16 0.015 150;
+    --foreground: 0.94 0.01 100;
+    --card: 0.2 0.018 150;
+    --card-foreground: 0.94 0.01 100;
+    --popover: 0.22 0.018 150;
+    --popover-foreground: 0.94 0.01 100;
+
+    --primary: 0.72 0.14 155;
+    --primary-foreground: 0.16 0.015 155;
+
+    --secondary: 0.24 0.02 150;
+    --secondary-foreground: 0.88 0.01 100;
+    --muted: 0.24 0.02 150;
+    --muted-foreground: 0.6 0.015 120;
+
+    --accent: 0.72 0.17 50;
+    --accent-foreground: 0.16 0.015 50;
+
+    --success: 0.68 0.15 150;
+    --success-foreground: 0.16 0.015 150;
+
+    --destructive: 0.65 0.19 25;
+    --destructive-foreground: 0.16 0.015 25;
+
+    --warning: 0.78 0.15 85;
+    --warning-foreground: 0.16 0.015 85;
+
+    --border: 0.28 0.02 150;
+    --input: 0.28 0.02 150;
+    --ring: 0.72 0.14 155;
+
+    --chart-1: 0.68 0.15 150;
+    --chart-2: 0.72 0.17 50;
+    --chart-3: 0.65 0.12 230;
+    --chart-4: 0.78 0.15 85;
+    --chart-5: 0.66 0.16 20;
+
+    --sidebar: 0.2 0.018 150;
+    --sidebar-foreground: 0.94 0.01 100;
+    --sidebar-primary: 0.72 0.14 155;
+    --sidebar-primary-foreground: 0.16 0.015 155;
+    --sidebar-accent: 0.24 0.02 150;
+    --sidebar-accent-foreground: 0.88 0.01 100;
+    --sidebar-border: 0.28 0.02 150;
+    --sidebar-ring: 0.72 0.14 155;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.6 0.13 155),
+      oklch(0.68 0.14 165)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      oklch(0.72 0.17 50),
+      oklch(0.66 0.18 35)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.16 0.015 150),
+      oklch(0.2 0.018 150)
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .bg-gradient-accent {
+    background-image: var(--gradient-accent);
+  }
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+  .shadow-subtle {
+    box-shadow: 0 1px 2px 0 oklch(0.2 0.02 150 / 0.04), 0 1px 3px 0
+      oklch(0.2 0.02 150 / 0.06);
+  }
+  .shadow-elevated {
+    box-shadow: 0 4px 12px -2px oklch(0.2 0.02 150 / 0.08), 0 2px 6px -2px
+      oklch(0.2 0.02 150 / 0.05);
+  }
+  .shadow-lifted {
+    box-shadow: 0 12px 28px -8px oklch(0.2 0.02 150 / 0.14), 0 4px 10px -4px
+      oklch(0.2 0.02 150 / 0.08);
+  }
+  .font-price {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+}

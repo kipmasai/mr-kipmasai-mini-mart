@@ -1,0 +1,20 @@
+{
+  "overview": "A full online shopping website for Mr Kipmasai Mini Mart where shoppers browse and search groceries, add items to a cart, and place delivery orders in Malaysian Ringgit.",
+  "features": [
+    "Browse and search a mini mart product catalogue by category",
+    "Product detail pages with images, price in RM and stock",
+    "Shopping cart that persists across refreshes",
+    "Checkout with delivery details and order confirmation",
+    "Sign in to view your own order history",
+    "Admin area to add, edit and delete products with uploaded images"
+  ],
+  "category": "e-commerce",
+  "tags": [
+    "shopping",
+    "grocery",
+    "mini-mart",
+    "e-commerce",
+    "storefront"
+  ],
+  "last_updated": "2026-10-26T08:40:41.147Z"
+}

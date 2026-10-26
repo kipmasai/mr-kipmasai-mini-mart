@@ -1,0 +1,171 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = int;
+type Sen = nat;
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type ProductUpdate = 
+ record {
+   category: text;
+   description: text;
+   image: opt ExternalBlob;
+   name: text;
+   priceSen: Sen;
+   stock: nat;
+ };
+type ProductInput = 
+ record {
+   category: text;
+   description: text;
+   image: opt ExternalBlob;
+   name: text;
+   priceSen: Sen;
+   stock: nat;
+ };
+type ProductId = nat;
+type Product = 
+ record {
+   category: text;
+   description: text;
+   id: ProductId;
+   image: opt ExternalBlob;
+   name: text;
+   priceSen: Sen;
+   stock: nat;
+ };
+type OrderRef = text;
+type OrderItemInput = 
+ record {
+   productId: ProductId;
+   quantity: nat;
+ };
+type OrderItem = 
+ record {
+   productId: ProductId;
+   productName: text;
+   quantity: nat;
+   subtotalSen: Sen;
+   unitPriceSen: Sen;
+ };
+type OrderId = nat;
+type Order = 
+ record {
+   createdAt: Timestamp;
+   delivery: DeliveryDetails;
+   id: OrderId;
+   items: vec OrderItem;
+   owner: principal;
+   reference: OrderRef;
+   totalSen: Sen;
+ };
+type ExternalBlob = blob;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type DeliveryDetails = 
+ record {
+   address: text;
+   customerName: text;
+   notes: opt text;
+   phone: text;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Admin: create a product.
+  createProduct: (input: ProductInput) -> (Product);
+  /// Admin: delete a product.
+  deleteProduct: (id: ProductId) -> (bool);
+  execute: (qJson: text) -> (Result) query;
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Return one of the caller's own orders.
+  getMyOrder: (id: OrderId) -> (opt Order) query;
+  /// Public: fetch one product.
+  getProduct: (id: ProductId) -> (opt Product) query;
+  isCallerAdmin: () -> (bool) query;
+  /// Public: list distinct categories.
+  listCategories: () -> (vec text) query;
+  /// Return only the caller's own orders.
+  listMyOrders: () -> (vec Order) query;
+  /// Public: list every product.
+  listProducts: () -> (vec Product) query;
+  /// Any visitor may place an order; the caller identity is recorded when signed in.
+  placeOrder: (delivery: DeliveryDetails, items: vec OrderItemInput) ->
+   (Order);
+  schema: () -> (text) query;
+  /// Public: search products by name and/or category.
+  searchProducts: (nameQuery: opt text, category: opt text) ->
+   (vec Product) query;
+  /// Admin: update a product.
+  updateProduct: (id: ProductId, input: ProductUpdate) -> (opt Product);
+}

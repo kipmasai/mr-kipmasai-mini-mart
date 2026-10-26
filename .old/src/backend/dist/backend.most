@@ -1,0 +1,118 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type DeliveryDetails__564043254 =
+  {address : Text; customerName : Text; notes : ?Text; phone : Text};
+type DeliveryDetails__997325729 =
+  {address : Text; customerName : Text; notes : ?Text; phone : Text};
+type ExternalBlob__220559234 = Blob;
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__769816496 =
+  {
+    accessControlState : AccessControlState__201339279;
+    orders : Map__230067015<OrderId__48928030, Order__129485232>;
+    products : Map__230067015<ProductId__141416562, Product__15225207>;
+    state : {var nextOrderId : Nat; var nextProductId : Nat}
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__512397517 = {};
+type OrderId__197865225 = Nat;
+type OrderId__48928030 = Nat;
+type OrderItem__241319351 =
+  {
+    productId : ProductId__160010635;
+    productName : Text;
+    quantity : Nat;
+    subtotalSen : Sen__526784320;
+    unitPriceSen : Sen__526784320
+  };
+type OrderItem__981207321 =
+  {
+    productId : ProductId__141416562;
+    productName : Text;
+    quantity : Nat;
+    subtotalSen : Sen__322555296;
+    unitPriceSen : Sen__322555296
+  };
+type OrderRef__497928811 = Text;
+type Order__129485232 =
+  {
+    createdAt : Timestamp__771871407;
+    delivery : DeliveryDetails__564043254;
+    id : OrderId__48928030;
+    items : [OrderItem__981207321];
+    owner : Principal;
+    reference : Text;
+    totalSen : Sen__322555296
+  };
+type Order__141779993 =
+  {
+    createdAt : Timestamp__301639476;
+    delivery : DeliveryDetails__997325729;
+    id : OrderId__197865225;
+    items : [OrderItem__241319351];
+    owner : Principal;
+    reference : OrderRef__497928811;
+    totalSen : Sen__526784320
+  };
+type ProductId__141416562 = Nat;
+type ProductId__160010635 = Nat;
+type Product__15225207 =
+  {
+    category : Text;
+    description : Text;
+    id : ProductId__141416562;
+    image : ?Blob;
+    name : Text;
+    priceSen : Sen__322555296;
+    stock : Nat
+  };
+type Product__389207432 =
+  {
+    category : Text;
+    description : Text;
+    id : ProductId__160010635;
+    image : ?ExternalBlob__220559234;
+    name : Text;
+    priceSen : Sen__526784320;
+    stock : Nat
+  };
+type Sen__322555296 = Nat;
+type Sen__526784320 = Nat;
+type Timestamp__301639476 = Int;
+type Timestamp__771871407 = Int;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "00000000_000000" : OldActor__512397517 -> NewActor__769816496
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable orders :
+    {
+      var root : Node__204828119<OrderId__197865225, Order__141779993>;
+      var size : Nat__227979830
+    };
+  stable products :
+    {
+      var root : Node__204828119<ProductId__160010635, Product__389207432>;
+      var size : Nat__227979830
+    };
+  stable state : {var nextOrderId : Nat; var nextProductId : Nat}
+};
